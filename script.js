@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    /* 1. МОБИЛНО МЕНЮ */
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const navLinks = document.getElementById('navLinks');
     if (mobileMenuBtn) {
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /* 2. МИТОВЕ И ФАКТИ */
     const mythsData = [
         { statement: "„ХИВ се предава чрез прегръдка, ръкостискане или целувка по бузата.“", type: "МИТ", isFact: false, explanation: "ХИВ не се предава чрез ежедневен физически или социален контакт." },
         { statement: "„ХИВ може да се предаде чрез ухапване от комар.“", type: "МИТ", isFact: false, explanation: "Комарите не пренасят ХИВ, тъй като вирусът не оцелява в тях." },
@@ -36,13 +38,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /* 3. ИНТЕРАКТИВЕН ТЕСТ */
     const quizQuestions = [
         { question: "1. Каква е основната разлика между ХИВ и СПИН?", options: ["Няма разлика", "ХИВ е вирусът, а СПИН е най-напредналият стадий", "СПИН е вирусът"], correct: 1, explanation: "ХИВ е вирусът, а СПИН е състоянието при липса на лечение." },
         { question: "2. Кои клетки на имунната система атакува ХИВ?", options: ["Еритроцити", "CD4 Т-лимфоцити", "Нервни клетки"], correct: 1, explanation: "ХИВ атакува CD4 белите кръвни клетки." },
-        { question: "3. По кой от изброените начини МОЖЕ да се предаде ХИВ?", options: ["При незащитен полов контакт или споделяне на игли", "При пиене от обща чаша", "При ухапване от комар"], correct: 0, explanation: "ХИВ се предава по полов и кръвен път." },
+        { question: "3. По кой от изброените начини МОЖЕ да се предаде ХИВ?", options: ["При незащитен полов контакт или споделяне на игли", "При пиене от обща чаша", "При ухапване от комар"], correct: 0, explanation: "Предава се по кръвен и полов път." },
         { question: "4. Какво означава медицинският принцип U = U?", options: ["Универсален = Устойчив", "Неоткриваем вирусен товар = Непредаваем", "Успешно изследване"], correct: 1, explanation: "Неоткриваем вирусен товар означава невъзможност за предаване по полов път." },
         { question: "5. Какво представлява PEP?", options: ["Ваксина", "Спешен курс с лекарства до 72 часа след рисков контакт", "Витамини"], correct: 1, explanation: "PEP е постекспозиционна профилактика." },
-        { question: "6. Какво е PrEP?", options: ["Профилактични медикаменти преди евентуален контакт", "Домашен тест", "Антибиотик"], correct: 0, explanation: "PrEP предпазва от заразяване." },
+        { question: "6. Какво е PrEP?", options: ["Профилактични медикаменти преди евентуален контакт за ХИВ-негативни", "Домашен тест", "Антибиотик"], correct: 0, explanation: "PrEP предпазва от заразяване." },
         { question: "7. Къде в България се правят безплатни изследвания?", options: ["В КАБКИС към РЗИ", "Само в чужбина", "Платено е навсякъде"], correct: 0, explanation: "КАБКИС към РЗИ предлага безплатни тестове." },
         { question: "8. Може ли да се разбере ХИВ статусът по външния вид?", options: ["Да", "Не, човек може да изглежда напълно здрав", "Само по очите"], correct: 1, explanation: "Тестът е единственият начин." },
         { question: "9. Кой е международният символ на солидарност?", options: ["Синята звезда", "Червената лента", "Зеленият кръг"], correct: 1, explanation: "Червената лента е символът." },
@@ -128,10 +131,12 @@ document.addEventListener('DOMContentLoaded', () => {
         loadQuestion();
     }
 
+    /* 4. FAQ АКОРДЕОН */
     document.querySelectorAll('.faq-question').forEach(btn => {
         btn.addEventListener('click', () => btn.parentElement.classList.toggle('active'));
     });
 
+    /* 5. СКРОЛ НАГОРЕ И СПОДЕЛЯНЕ */
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     if (scrollTopBtn) {
         window.addEventListener('scroll', () => {
@@ -150,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /* 6. АНИМАЦИИ */
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -157,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // 3D МОДЕЛ НА ВИРУСА ХИВ
+    /* 7. 3D МОДЕЛ НА ВИРУСА ХИВ (ФИКСИРАН И ЦЕНТРИРАН) */
     const container3D = document.getElementById('hiv3dContainer');
     if (container3D && typeof THREE !== 'undefined') {
         const width = container3D.clientWidth || 450;

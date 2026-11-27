@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Образователна кампания АНТИСПИН - Информация за ХИВ и СПИН, превенция, изследвания и толерантност. Проект на Ешреф Юмерефенди, 10Б.">
+    <title>АНТИСПИН Кампания | Образователен проект</title>
+    <!-- Google Fonts: Poppins & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome за икони -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Навигация -->
+    <header class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#home" class="logo">
+                <!-- SVG Червена лента (Red Ribbon) -->
+                <svg class="ribbon-icon" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M32 6C20 6 14 15 14 25C14 35 24 44 32 52L46 68L54 61L39 44C46 37 50 30 50 25C50 15 44 6 32 6ZM32 16C37 16 40 20 40 25C40 29 36 33 32 37C28 33 24 29 24 25C24 20 27 16 32 16Z" fill="#D32F2F"/>
+                    <path d="M25 44L10 61L18 68L32 52L25 44Z" fill="#B71C1C"/>
+                </svg>
+                <span>АНТИ<strong>СПИН</strong></span>
+            </a>
+
+            <nav class="nav-links" id="navLinks">
+                <a href="#home" class="nav-item">Начало</a>
+                <a href="#about-hiv" class="nav-item">ХИВ и СПИН</a>
+                <a href="#transmission" class="nav-item">Предаване</a>
+                <a href="#prevention" class="nav-item">Превенция</a>
+                <a href="#testing" class="nav-item">Изследвания</a>
+                <a href="#myths" class="nav-item">Митове и факти</a>
+                <a href="#tolerance" class="nav-item">Толерантност</a>
+                <a href="#quiz" class="nav-item nav-cta">Тест</a>
+            </nav>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Отвори меню">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- 1. НАЧАЛО (HERO СЕКЦИЯ) -->
+    <section id="home" class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content fade-in">
+                <div class="badge">
+                    <i class="fas fa-ribbon"></i> Образователна здравна инициатива
+                </div>
+                <h1>ИНФОРМИРАЙ СЕ.<br>ПРЕДПАЗИ СЕ.<br><span class="text-red">БЪДИ ОТГОВОРЕН.</span></h1>
+                <p class="hero-subtitle">
+                    Достоверна научна информация за ХИВ и СПИН, начините на предпазване, съвременното лечение и силата на подкрепата без предразсъдъци.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#about-hiv" class="btn btn-primary">Научи повече <i class="fas fa-arrow-right"></i></a>
+                    <a href="#quiz" class="btn btn-outline">Провери знанията си</a>
+                </div>
+            </div>
+
+            <div class="hero-visual fade-in">
+                <div class="hero-card">
+                    <svg class="hero-ribbon-large" viewBox="0 0 120 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M60 10C36 10 24 28 24 48C24 68 44 85 60 102L88 134L104 120L74 86C88 72 96 58 96 48C96 28 84 10 60 10ZM60 28C71 28 77 36 77 48C77 56 69 65 60 73C51 65 43 56 43 48C43 36 49 28 60 28Z" fill="#D32F2F"/>
+                        <path d="M46 86L16 120L32 134L60 102L46 86Z" fill="#9A0007"/>
+                    </svg>
+                    <h3>Символ на солидарност</h3>
+                    <p>Червената лента е международен символ на осведоменост за ХИВ/СПИН и подкрепа към засегнатите хора.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Основни статистически данни -->
+        <div class="container stats-bar fade-in">
+            <div class="stat-item">
+                <span class="stat-number">39.9 млн.</span>
+                <span class="stat-label">хора по света живеят с ХИВ (UNAIDS, данни за 2023 г.)</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">30.7 млн.</span>
+                <span class="stat-label">души имат достъп до животоспасяваща терапия (UNAIDS, 2023 г.)</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">U = U</span>
+                <span class="stat-label">Неоткриваем вирусен товар = Непредаваем по полов път (СЗО)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. КАКВО СА ХИВ И СПИН? -->
+    <section id="about-hiv" class="section bg-light">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Медицински основи</span>
+                <h2>Какво са ХИВ и СПИН?</h2>
+                <p>Разбирането на разликата между вируса и синдрома е първата стъпка към премахване на страха.</p>
+            </div>
+
+            <div class="grid-2 fade-in">
+                <div class="info-card border-red">
+                    <div class="card-icon"><i class="fas fa-virus"></i></div>
+                    <h3>Какво представлява ХИВ?</h3>
+                    <p><strong>ХИВ (Човешки имунодефицитен вирус)</strong> е вирус, който атакува имунната система на човека, и по-конкретно белите кръвни клетки, наречени <strong>CD4 Т-лимфоцити</strong>. Тези клетки помагат на организма да се бори с инфекции и заболявания.</p>
+                    <p>Ако не се лекува, ХИВ постепенно намалява броя на CD4 клетките и отслабва естествената защита на тялото.</p>
+                </div>
+
+                <div class="info-card border-dark">
+                    <div class="card-icon dark-icon"><i class="fas fa-shield-virus"></i></div>
+                    <h3>Какво представлява СПИН?</h3>
+                    <p><strong>СПИН (Синдром на придобитата имунна недостатъчност)</strong> е най-напредналият стадий на инфекцията с ХИВ. Той настъпва, когато имунната система е силно увредена и не може да се защитава от опортюнистични инфекции и определени видове рак.</p>
+                    <p><strong>Важно:</strong> ХИВ е вирусът, а СПИН е състоянието. Не всеки човек с ХИВ развива СПИН!</p>
+                </div>
+            </div>
+
+            <!-- Развитие и живот с ХИВ -->
+            <div class="timeline-box fade-in">
+                <h3>Как се развива инфекцията без лечение и каква е ролята на медицината?</h3>
+                <div class="grid-3">
+                    <div class="step-card">
+                        <span class="step-num">1</span>
+                        <h4>Остра ХИВ инфекция</h4>
+                        <p>Настъпва 2–4 седмици след заразяване. Може да протече без симптоми или с грипоподобни прояви (температура, отпадналост).</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-num">2</span>
+                        <h4>Хроничен (латентен) стадий</h4>
+                        <p>Вирусът се размножава бавно в организма. Човек може да няма никакви симптоми в продължение на години, но да предава вируса, ако не се лекува.</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="step-num">3</span>
+                        <h4>Живот с терапия днес</h4>
+                        <p>При ранно откриване и редовен прием на съвременни лекарства развитието на СПИН се предотвратява напълно. Човек живее <strong>дълъг, здрав и пълноценен живот</strong>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. НАЧИНИ НА ПРЕДАВАНЕ -->
+    <section id="transmission" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Научни факти</span>
+                <h2>Начини на предаване на ХИВ</h2>
+                <p>ХИВ не се предава лесно. Вирусът се съдържа в определени телесни течности (кръв, семенна течност, вагинален секрет и кърма) и изисква директен път за навлизане в кръвообращението.</p>
+            </div>
+
+            <div class="grid-2 fade-in">
+                <!-- Как се предава -->
+                <div class="list-card yes-card">
+                    <h3><i class="fas fa-exclamation-circle"></i> Как СЕ предава ХИВ:</h3>
+                    <ul>
+                        <li>
+                            <strong>Незащитени полови контакти:</strong> Вагинален, анален или орален сексуален контакт без презерватив с партньор, който има откриваем вирусен товар.
+                        </li>
+                        <li>
+                            <strong>Контакт със заразена кръв:</strong> Споделяне на общи игли, спринцовки или други пособия за инжектиране, както и татуиране/пиърсинг с нестерилни инструменти.
+                        </li>
+                        <li>
+                            <strong>От майка на бебе:</strong> По време на бременност, раждане или кърмене (рискът се свежда до под 1%, когато майката приема антиретровирусна терапия).
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Как НЕ се предава -->
+                <div class="list-card no-card">
+                    <h3><i class="fas fa-check-circle"></i> Как НЕ СЕ предава ХИВ:</h3>
+                    <ul>
+                        <li><strong>Ежедневни социални контакти:</strong> Прегръдки, ръкостискане, целувки по бузата, разговор или стоене в една стая.</li>
+                        <li><strong>Общи предмети:</strong> Прибори за хранене, чаши, кърпи, дрехи, телефони или тоалетни седалки.</li>
+                        <li><strong>Въздух и вода:</strong> Кашляне, кихане, плуване в общ басейн или сауна.</li>
+                        <li><strong>Насекоми:</strong> Ухапвания от комари, кърлежи или други насекоми (вирусът не оцелява в тях).</li>
+                        <li><strong>Слюнка, пот и сълзи:</strong> Концентрацията на вируса в тях е твърде ниска, за да доведе до заразяване.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. ПРЕВЕНЦИЯ -->
+    <section id="prevention" class="section bg-light">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Защита и отговорност</span>
+                <h2>Превенция на ХИВ</h2>
+                <p>Информираността и отговорното поведение са най-сигурният щит срещу инфекцията.</p>
+            </div>
+
+            <div class="grid-4 fade-in">
+                <div class="prev-card">
+                    <div class="prev-icon"><i class="fas fa-shield-heart"></i></div>
+                    <h3>Бариерна защита</h3>
+                    <p>Правилната и редовна употреба на презервативи при всеки полов контакт е най-достъпният и ефективен метод за защита от ХИВ и други полово предавани инфекции.</p>
+                </div>
+
+                <div class="prev-card">
+                    <div class="prev-icon"><i class="fas fa-syringe"></i></div>
+                    <h3>Стерилни инструменти</h3>
+                    <p>Никога не споделяйте игли или спринцовки. Използвайте само лицензирани студиа за татуировки и пиърсинг, работещи със стерилни материали за еднократна употреба.</p>
+                </div>
+
+                <div class="prev-card">
+                    <div class="prev-icon"><i class="fas fa-pills"></i></div>
+                    <h3>PrEP (Предекспозиционна профилактика)</h3>
+                    <p>Прием на специализирани медикаменти от ХИВ-негативни хора в повишен риск <strong>преди</strong> евентуален контакт. Намалява риска от заразяване по полов път с около 99% (СЗО).</p>
+                </div>
+
+                <div class="prev-card">
+                    <div class="prev-icon"><i class="fas fa-clock"></i></div>
+                    <h3>PEP (Постекспозиционна профилактика)</h3>
+                    <p>Спешен 28-дневен курс с лекарства, който трябва да започне <strong>до 72 часа</strong> след рискова ситуация (напр. скъсан презерватив или убождане с игла), за да се предотврати инфекцията.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. ИЗСЛЕДВАНИЯ И ЛЕЧЕНИЕ -->
+    <section id="testing" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Диагностика и медицина</span>
+                <h2>Изследвания и съвременно лечение</h2>
+                <p>Единственият сигурен начин човек да разбере своя ХИВ статус е чрез тест.</p>
+            </div>
+
+            <div class="grid-2 fade-in">
+                <div class="detail-box">
+                    <h3><i class="fas fa-vial"></i> Какво представлява тестът за ХИВ?</h3>
+                    <p>Тестът проверява за наличие на антитела срещу ХИВ или вирусни антигени в кръвта или слюнката. Бързите тестове стават за <strong>15–20 минути</strong> с капка кръв от пръста.</p>
+                    <h4>Кога се прави изследване?</h4>
+                    <p>След рисков контакт има т.нар. <strong>„прозоречен период“</strong> (обикновено 3 до 6 седмици при съвременните тестове 4-то поколение), през който организмът изработва антитела. Препоръчително е изследване след изтичане на този период.</p>
+                    <h4>Къде в България се правят безплатни изследвания?</h4>
+                    <p>В България всеки може да се изследва <strong>безплатно, анонимно и доброволно</strong> в кабинетите за анонимно и безплатно консултиране и изследване за ХИВ/СПИН (КАБКИС) към Регионалните здравни инспекции (РЗИ) в големите градове, както и в мобилни медицински кабинети по време на национални кампании на Министерството на здравеопазването.</p>
+                </div>
+
+                <div class="detail-box treatment-box">
+                    <h3><i class="fas fa-capsules"></i> Антиретровирусна терапия (АРТ)</h3>
+                    <p>Макар все още да няма ваксина или лекарство, което напълно да изчисти вируса от тялото, съвременната <strong>антиретровирусна терапия (АРТ)</strong> спира размножаването на ХИВ.</p>
+                    <p>Терапията обикновено се състои от една таблетка дневно, която поддържа имунната система силна и здрава.</p>
+
+                    <div class="uu-banner">
+                        <div class="uu-badge">U = U</div>
+                        <div>
+                            <h4>Неоткриваем = Непредаваем</h4>
+                            <p>Когато човек с ХИВ приема редовно своята терапия, количеството на вируса в кръвта спада до толкова ниски нива, че не може да бъде засечено от стандартните лабораторни тестове („неоткриваем вирусен товар“). Според Световната здравна организация такъв човек <strong>не може да предаде ХИВ по полов път</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. МИТОВЕ И ФАКТИ (ИНТЕРАКТИВНА СЕКЦИЯ) -->
+    <section id="myths" class="section bg-light">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Провери истината</span>
+                <h2>Митове и факти за ХИВ</h2>
+                <p>Натисни върху всяка карта, за да провериш дали твърдението е МИТ или ФАКТ и да прочетеш научното обяснение.</p>
+            </div>
+
+            <div class="myths-grid fade-in" id="mythsContainer">
+                <!-- Генерира се динамично чрез script.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. ТОЛЕРАНТНОСТ И ПОДКРЕПА -->
+    <section id="tolerance" class="section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Човечност и емпатия</span>
+                <h2>Толерантност и подкрепа</h2>
+            </div>
+
+            <div class="tolerance-wrapper fade-in">
+                <div class="tolerance-content">
+                    <h3>Какво представлява стигмата и защо е опасна?</h3>
+                    <p><strong>Стигмата</strong> е негативното отношение, страхът и предразсъдъците към хората, живеещи с ХИВ. Тя често произтича от липса на актуална научна информация и остарели представи от 80-те и 90-те години на XX век.</p>
+                    <p><strong>Дискриминацията</strong> кара хората да се страхуват да се изследват или да започнат лечение, за да не бъдат отхвърлени от обществото, училището или работното място. Всъщност ранното изследване и лечение защитават здравето на всички.</p>
+                    <h4>Как да се отнасяме?</h4>
+                    <p>С уважение, разбиране и съпричастност. Хората с ХИВ са наши съученици, приятели, колеги и роднини, които заслужават подкрепа и равен шанс за живот.</p>
+                </div>
+
+                <div class="quote-card">
+                    <i class="fas fa-quote-left"></i>
+                    <blockquote>
+                        „ХИВ не определя човека. Информираността премахва страха.“
+                    </blockquote>
+                    <span class="quote-sub">Бъди част от поколението без предразсъдъци.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. ИНТЕРАКТИВЕН ТЕСТ (ВИКТОРИНА С 10 ВЪПРОСА) -->
+    <section id="quiz" class="section bg-dark text-white">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag tag-light">Образователно предизвикателство</span>
+                <h2>Интерактивен тест: Колко знаеш за ХИВ и СПИН?</h2>
+                <p>Отговори на 10 въпроса и провери нивото си на информираност.</p>
+            </div>
+
+            <div class="quiz-box fade-in" id="quizContainer">
+                <div class="quiz-header">
+                    <span id="questionCounter">Въпрос 1 от 10</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+
+                <div id="quizBody">
+                    <h3 id="questionText">Зареждане на въпроса...</h3>
+                    <div class="options-list" id="optionsList"></div>
+                    <div class="feedback-box hidden" id="feedbackBox"></div>
+                    <button class="btn btn-primary hidden" id="nextBtn">Следващ въпрос <i class="fas fa-arrow-right"></i></button>
+                </div>
+
+                <div id="quizResult" class="hidden">
+                    <div class="result-circle">
+                        <span id="scoreDisplay">0/10</span>
+                    </div>
+                    <h3 id="resultTitle">Резултат</h3>
+                    <p id="resultMessage"></p>
+                    <button class="btn btn-primary" id="restartBtn"><i class="fas fa-redo"></i> Направи теста отново</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. ЧЕСТО ЗАДАВАНИ ВЪПРОСИ (FAQ) И ПОЛЕЗНИ РЕСУРСИ -->
+    <section id="resources" class="section bg-light">
+        <div class="container">
+            <div class="grid-2 fade-in">
+                <!-- FAQ Акордеон -->
+                <div>
+                    <span class="section-tag">Бързи отговори</span>
+                    <h2>Често задавани въпроси (FAQ)</h2>
+                    <div class="faq-list" id="faqList">
+                        <div class="faq-item">
+                            <button class="faq-question">Може ли човек с ХИВ да има здрави деца? <i class="fas fa-chevron-down"></i></button>
+                            <div class="faq-answer">
+                                <p>Да. При правилно проведена антиретровирусна терапия по време на бременността и раждането, рискът от предаване на вируса на бебето е под 1%.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question">Открива ли се ХИВ при обикновена пълна кръвна картина? <i class="fas fa-chevron-down"></i></button>
+                            <div class="faq-answer">
+                                <p>Не. Рутинните кръвни изследвания не показват наличие на ХИВ. Необходим е специфичен тест за антитела/антигени на ХИВ.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question">Задължително ли е изследването за ХИВ в България? <i class="fas fa-chevron-down"></i></button>
+                            <div class="faq-answer">
+                                <p>Не, изследването за ХИВ е изцяло доброволно, безплатно и анонимно в кабинетите КАБКИС. Никой няма право да ви принуждава да се тествате.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question">Безплатно ли е лечението на ХИВ в България? <i class="fas fa-chevron-down"></i></button>
+                            <div class="faq-answer">
+                                <p>Да. В България антиретровирусната терапия се осигурява безплатно от държавата за всички диагностицирани пациенти чрез специализираните отделения за лечение на ХИВ/СПИН.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Полезни ресурси -->
+                <div>
+                    <span class="section-tag">Надеждни източници</span>
+                    <h2>Полезни институции и ресурси</h2>
+                    <p class="mb-20">Информацията в този сайт е базирана на официални медицински данни от водещи здравни организации:</p>
+                    <div class="resources-list">
+                        <a href="https://www.who.int/health-topics/hiv-aids" target="_blank" rel="noopener noreferrer" class="resource-card">
+                            <div class="res-info">
+                                <strong>Световна здравна организация (СЗО / WHO)</strong>
+                                <span>Глобални здравни насоки и научни публикации за ХИВ/СПИН</span>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+
+                        <a href="https://www.unaids.org/" target="_blank" rel="noopener noreferrer" class="resource-card">
+                            <div class="res-info">
+                                <strong>UNAIDS (Обединена програма на ООН за ХИВ/СПИН)</strong>
+                                <span>Световна статистика, доклади и инициативи за превенция</span>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+
+                        <a href="https://www.mh.government.bg/" target="_blank" rel="noopener noreferrer" class="resource-card">
+                            <div class="res-info">
+                                <strong>Министерство на здравеопазването на Република България</strong>
+                                <span>Национална програма за превенция и контрол на ХИВ и СПИ</span>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+
+                        <a href="https://www.ncipd.org/" target="_blank" rel="noopener noreferrer" class="resource-card">
+                            <div class="res-info">
+                                <strong>Национален център по заразни и паразитни болести (НЦЗПБ)</strong>
+                                <span>Епидемиологични данни и референтна лаборатория в България</span>
+                            </div>
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. ЗА КАМПАНИЯТА -->
+    <section id="about-project" class="section">
+        <div class="container">
+            <div class="project-card fade-in">
+                <div class="project-badge">Училищен образователен проект</div>
+                <h2>За кампанията „АНТИСПИН“</h2>
+                <p>
+                    Този уебсайт е създаден с образователна и информационна цел, насочена към младите хора, учениците и учителите. Основната мисия на платформата е да предостави проверена, научно достоверна и достъпна информация относно ХИВ и СПИН, съвременните методи за профилактика и лечение, както и да насърчи толерантността и подкрепата към хората, живеещи с ХИВ.
+                </p>
+                <div class="author-info">
+                    <div><strong>Автор на проекта:</strong> Ешреф Юмерефенди</div>
+                    <div><strong>Клас:</strong> 10Б</div>
+                </div>
+                <div class="final-motto">
+                    „ЗНАНИЕТО Е НАЙ-СИЛНОТО СРЕДСТВО СРЕЩУ СТРАХА И ПРЕДРАЗСЪДЪЦИТЕ.“
+                </div>
+                <div class="share-box">
+                    <button class="btn btn-outline-dark" id="shareBtn">
+                        <i class="fas fa-share-alt"></i> Сподели кампанията
+                    </button>
+                    <span id="shareFeedback" class="share-feedback"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ФУТЪР -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <p class="footer-main">АНТИСПИН КАМПАНИЯ | Образователен проект | Ешреф Юмерефенди – 10Б</p>
+            <p class="footer-note">Образователен материал с информационна цел. При медицински въпроси се консултирайте с лекар или кабинет КАБКИС.</p>
+        </div>
+    </footer>
+
+    <!-- Бутон за връщане най-горе -->
+    <button id="scrollTopBtn" class="scroll-top" aria-label="Върни се най-горе">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

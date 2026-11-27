@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* =========================================
-       2. ИНТЕРАКТИВНА СЕКЦИЯ: МИТОВЕ И ФАКТИ
+       2. МИТОВЕ И ФАКТИ
        ========================================= */
     const mythsData = [
         {
@@ -59,26 +59,27 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const mythsContainer = document.getElementById('mythsContainer');
-
-    mythsData.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'myth-card';
-        card.innerHTML = `
-            <div class="myth-prompt">${item.statement}</div>
-            <div class="myth-hint"><i class="fas fa-hand-pointer"></i> Натисни, за да провериш</div>
-            <div class="myth-reveal">
-                <span class="${item.isFact ? 'tag-fact' : 'tag-myth'}">${item.type}</span>
-                <p>${item.explanation}</p>
-            </div>
-        `;
-        card.addEventListener('click', () => {
-            card.classList.toggle('revealed');
+    if (mythsContainer) {
+        mythsData.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'myth-card';
+            card.innerHTML = `
+                <div class="myth-prompt">${item.statement}</div>
+                <div class="myth-hint"><i class="fas fa-hand-pointer"></i> Натисни, за да провериш</div>
+                <div class="myth-reveal">
+                    <span class="${item.isFact ? 'tag-fact' : 'tag-myth'}">${item.type}</span>
+                    <p>${item.explanation}</p>
+                </div>
+            `;
+            card.addEventListener('click', () => {
+                card.classList.toggle('revealed');
+            });
+            mythsContainer.appendChild(card);
         });
-        mythsContainer.appendChild(card);
-    });
+    }
 
     /* =========================================
-       3. ИНТЕРАКТИВЕН ТЕСТ (10 ВЪПРОСА)
+       3. ИНТЕРАКТИВЕН ТЕСТ
        ========================================= */
     const quizQuestions = [
         {
@@ -199,81 +200,83 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultMessage = document.getElementById('resultMessage');
     const restartBtn = document.getElementById('restartBtn');
 
-    function loadQuestion() {
-        const currentQ = quizQuestions[currentQuestionIndex];
-        questionCounter.textContent = `Въпрос ${currentQuestionIndex + 1} от ${quizQuestions.length}`;
-        progressFill.style.width = `${((currentQuestionIndex + 1) / quizQuestions.length) * 100}%`;
-        questionText.textContent = currentQ.question;
+    if (quizBody) {
+        function loadQuestion() {
+            const currentQ = quizQuestions[currentQuestionIndex];
+            questionCounter.textContent = `Въпрос ${currentQuestionIndex + 1} от ${quizQuestions.length}`;
+            progressFill.style.width = `${((currentQuestionIndex + 1) / quizQuestions.length) * 100}%`;
+            questionText.textContent = currentQ.question;
 
-        optionsList.innerHTML = '';
-        feedbackBox.classList.add('hidden');
-        nextBtn.classList.add('hidden');
+            optionsList.innerHTML = '';
+            feedbackBox.classList.add('hidden');
+            nextBtn.classList.add('hidden');
 
-        currentQ.options.forEach((option, index) => {
-            const btn = document.createElement('button');
-            btn.className = 'option-btn';
-            btn.textContent = option;
-            btn.addEventListener('click', () => selectAnswer(index, btn));
-            optionsList.appendChild(btn);
+            currentQ.options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = option;
+                btn.addEventListener('click', () => selectAnswer(index, btn));
+                optionsList.appendChild(btn);
+            });
+        }
+
+        function selectAnswer(selectedIndex, selectedBtn) {
+            const currentQ = quizQuestions[currentQuestionIndex];
+            const allButtons = optionsList.querySelectorAll('.option-btn');
+
+            allButtons.forEach(btn => btn.disabled = true);
+
+            if (selectedIndex === currentQ.correct) {
+                selectedBtn.classList.add('correct');
+                score++;
+                feedbackBox.innerHTML = `<strong>Верен отговор!</strong> ${currentQ.explanation}`;
+            } else {
+                selectedBtn.classList.add('wrong');
+                allButtons[currentQ.correct].classList.add('correct');
+                feedbackBox.innerHTML = `<strong>Неточен отговор.</strong> ${currentQ.explanation}`;
+            }
+
+            feedbackBox.classList.remove('hidden');
+            nextBtn.classList.remove('hidden');
+            nextBtn.textContent = currentQuestionIndex === quizQuestions.length - 1 ? 'Виж резултата' : 'Следващ въпрос';
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizQuestions.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
         });
-    }
 
-    function selectAnswer(selectedIndex, selectedBtn) {
-        const currentQ = quizQuestions[currentQuestionIndex];
-        const allButtons = optionsList.querySelectorAll('.option-btn');
+        function showResult() {
+            quizBody.classList.add('hidden');
+            quizResult.classList.remove('hidden');
+            scoreDisplay.textContent = `${score}/${quizQuestions.length}`;
 
-        allButtons.forEach(btn => btn.disabled = true);
-
-        if (selectedIndex === currentQ.correct) {
-            selectedBtn.classList.add('correct');
-            score++;
-            feedbackBox.innerHTML = `<strong>Верен отговор!</strong> ${currentQ.explanation}`;
-        } else {
-            selectedBtn.classList.add('wrong');
-            allButtons[currentQ.correct].classList.add('correct');
-            feedbackBox.innerHTML = `<strong>Неточен отговор.</strong> ${currentQ.explanation}`;
+            if (score >= 9) {
+                resultTitle.textContent = "Отличен резултат! Ти си посланик на знанието!";
+                resultMessage.textContent = "Притежаваш задълбочени и научно точни познания за ХИВ и СПИН. Сподели наученото с приятели, за да помогнеш в борбата с предразсъдъците.";
+            } else if (score >= 6) {
+                resultTitle.textContent = "Много добър резултат!";
+                resultMessage.textContent = "Познаваш основните факти за превенцията и лечението на ХИВ. Прегледай секциите по-горе, за да затвърдиш всички детайли.";
+            } else {
+                resultTitle.textContent = "Добро начало!";
+                resultMessage.textContent = "Информираността е най-добрата защита. Прочети внимателно информацията на сайта и опитай теста отново!";
+            }
         }
 
-        feedbackBox.classList.remove('hidden');
-        nextBtn.classList.remove('hidden');
-        nextBtn.textContent = currentQuestionIndex === quizQuestions.length - 1 ? 'Виж резултата' : 'Следващ въпрос';
-    }
-
-    nextBtn.addEventListener('click', () => {
-        currentQuestionIndex++;
-        if (currentQuestionIndex < quizQuestions.length) {
+        restartBtn.addEventListener('click', () => {
+            currentQuestionIndex = 0;
+            score = 0;
+            quizResult.classList.add('hidden');
+            quizBody.classList.remove('hidden');
             loadQuestion();
-        } else {
-            showResult();
-        }
-    });
+        });
 
-    function showResult() {
-        quizBody.classList.add('hidden');
-        quizResult.classList.remove('hidden');
-        scoreDisplay.textContent = `${score}/${quizQuestions.length}`;
-
-        if (score >= 9) {
-            resultTitle.textContent = "Отличен резултат! Ти си посланик на знанието!";
-            resultMessage.textContent = "Притежаваш задълбочени и научно точни познания за ХИВ и СПИН. Сподели наученото с приятели, за да помогнеш в борбата с предразсъдъците.";
-        } else if (score >= 6) {
-            resultTitle.textContent = "Много добър резултат!";
-            resultMessage.textContent = "Познаваш основните факти за превенцията и лечението на ХИВ. Прегледай секциите по-горе, за да затвърдиш всички детайли.";
-        } else {
-            resultTitle.textContent = "Добро начало!";
-            resultMessage.textContent = "Информираността е най-добрата защита. Прочети внимателно информацията на сайта и опитай теста отново!";
-        }
-    }
-
-    restartBtn.addEventListener('click', () => {
-        currentQuestionIndex = 0;
-        score = 0;
-        quizResult.classList.add('hidden');
-        quizBody.classList.remove('hidden');
         loadQuestion();
-    });
-
-    loadQuestion();
+    }
 
     /* =========================================
        4. FAQ АКОРДЕОН
@@ -289,44 +292,34 @@ document.addEventListener('DOMContentLoaded', () => {
        5. БУТОН ЗА ВРЪЩАНЕ НАЙ-ГОРЕ
        ========================================= */
     const scrollTopBtn = document.getElementById('scrollTopBtn');
+    if (scrollTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                scrollTopBtn.style.display = 'flex';
+            } else {
+                scrollTopBtn.style.display = 'none';
+            }
+        });
 
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 400) {
-            scrollTopBtn.style.display = 'flex';
-        } else {
-            scrollTopBtn.style.display = 'none';
-        }
-    });
-
-    scrollTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 
     /* =========================================
        6. СПОДЕЛЯНЕ НА КАМПАНИЯТА
        ========================================= */
     const shareBtn = document.getElementById('shareBtn');
     const shareFeedback = document.getElementById('shareFeedback');
-
-    shareBtn.addEventListener('click', async () => {
-        const shareData = {
-            title: 'АНТИСПИН Кампания | Образователен проект',
-            text: 'Информирай се. Предпази се. Бъди отговорен. Образователен уебсайт за ХИВ и СПИН.',
-            url: window.location.href
-        };
-
-        if (navigator.share) {
-            try {
-                await navigator.share(shareData);
-            } catch (err) {
-                // Потребителят е затворил прозореца за споделяне
+    if (shareBtn) {
+        shareBtn.addEventListener('click', async () => {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(window.location.href);
+                shareFeedback.textContent = "Линкът към кампанията е копиран в клипборда!";
+                setTimeout(() => { shareFeedback.textContent = ""; }, 3500);
             }
-        } else {
-            navigator.clipboard.writeText(window.location.href);
-            shareFeedback.textContent = "Линкът към кампанията е копиран в клипборда!";
-            setTimeout(() => { shareFeedback.textContent = ""; }, 3500);
-        }
-    });
+        });
+    }
 
     /* =========================================
        7. АНИМАЦИИ ПРИ СКРОЛИРАНЕ
@@ -342,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
     /* =========================================
-       8. 3D МОДЕЛ НА ВИРУСА ХИВ (THREE.JS)
+       8. 3D МОДЕЛ НА ВИРУСА ХИВ (THREE.JS - БЕЗ ВЪНШНИ КОНТРОЛИ)
        ========================================= */
     const container3D = document.getElementById('hiv3dContainer');
     if (container3D && typeof THREE !== 'undefined') {
@@ -355,32 +348,22 @@ document.addEventListener('DOMContentLoaded', () => {
         renderer.setPixelRatio(window.devicePixelRatio);
         container3D.appendChild(renderer.domElement);
 
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.05;
-        controls.enablePan = false;
-        controls.minDistance = 4.5;
-        controls.maxDistance = 12;
-
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
+        // Осветление
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
         scene.add(ambientLight);
 
-        const dirLight1 = new THREE.DirectionalLight(0xffffff, 0.9);
-        dirLight1.position.set(5, 5, 5);
-        scene.add(dirLight1);
-
-        const dirLight2 = new THREE.DirectionalLight(0xff8a80, 0.5);
-        dirLight2.position.set(-5, -3, -5);
-        scene.add(dirLight2);
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
+        dirLight.position.set(5, 5, 5);
+        scene.add(dirLight);
 
         const virusGroup = new THREE.Group();
         scene.add(virusGroup);
 
-        // Външна липидна обвивка
-        const shellGeo = new THREE.SphereGeometry(2, 48, 48);
+        // 1. Външна липидна обвивка
+        const shellGeo = new THREE.SphereGeometry(2, 32, 32);
         const shellMat = new THREE.MeshStandardMaterial({
             color: 0x374151,
-            roughness: 0.45,
+            roughness: 0.4,
             metalness: 0.1,
             transparent: true,
             opacity: 1
@@ -388,31 +371,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const shellMesh = new THREE.Mesh(shellGeo, shellMat);
         virusGroup.add(shellMesh);
 
-        // Вътрешен капсид
-        const coreGeo = new THREE.CylinderGeometry(0.35, 0.7, 1.8, 24);
+        // 2. Вътрешен капсид
+        const coreGeo = new THREE.CylinderGeometry(0.35, 0.6, 1.6, 16);
         const coreMat = new THREE.MeshStandardMaterial({
             color: 0xFFB74D,
-            roughness: 0.3,
-            metalness: 0.2
+            roughness: 0.3
         });
         const coreMesh = new THREE.Mesh(coreGeo, coreMat);
         coreMesh.rotation.z = 0.3;
         virusGroup.add(coreMesh);
 
-        // РНК спирали
-        const rnaGeo = new THREE.TorusKnotGeometry(0.28, 0.06, 64, 8);
-        const rnaMat = new THREE.MeshStandardMaterial({ color: 0xD32F2F });
-        const rnaMesh = new THREE.Mesh(rnaGeo, rnaMat);
-        virusGroup.add(rnaMesh);
-
-        // Шипове
+        // 3. Шипове
         const spikeGroup = new THREE.Group();
-        const stalkGeo = new THREE.CylinderGeometry(0.06, 0.08, 0.45, 12);
+        const stalkGeo = new THREE.CylinderGeometry(0.05, 0.07, 0.4, 8);
         const stalkMat = new THREE.MeshStandardMaterial({ color: 0x9CA3AF });
-        const headGeo = new THREE.SphereGeometry(0.18, 16, 16);
-        const headMat = new THREE.MeshStandardMaterial({ color: 0xD32F2F, roughness: 0.3 });
+        const headGeo = new THREE.SphereGeometry(0.16, 12, 12);
+        const headMat = new THREE.MeshStandardMaterial({ color: 0xD32F2F });
 
-        const spikeCount = 42;
+        const spikeCount = 36;
         const goldenRatio = (1 + Math.sqrt(5)) / 2;
 
         for (let i = 0; i < spikeCount; i++) {
@@ -427,42 +403,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const singleSpike = new THREE.Group();
             const stalk = new THREE.Mesh(stalkGeo, stalkMat);
-            stalk.position.y = 2.15;
+            stalk.position.y = 2.1;
 
             const head = new THREE.Mesh(headGeo, headMat);
-            head.position.y = 2.4;
-            head.scale.set(1.1, 0.85, 1.1);
+            head.position.y = 2.35;
 
             singleSpike.add(stalk);
             singleSpike.add(head);
-
             singleSpike.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir);
             spikeGroup.add(singleSpike);
         }
         virusGroup.add(spikeGroup);
 
-        // Разрез бутон
+        // Бутон за разрез
         let isCutaway = false;
         const toggleBtn = document.getElementById('toggleCutawayBtn');
         if (toggleBtn) {
             toggleBtn.addEventListener('click', () => {
                 isCutaway = !isCutaway;
-                shellMat.opacity = isCutaway ? 0.22 : 1;
+                shellMat.opacity = isCutaway ? 0.25 : 1;
                 toggleBtn.innerHTML = isCutaway
                     ? '<i class="fas fa-eye-slash"></i> Скрий разреза (плътна обвивка)'
                     : '<i class="fas fa-eye"></i> Покажи вътрешността (разрез)';
             });
         }
 
+        // Плавна анимация на въртене
         function animate() {
             requestAnimationFrame(animate);
-            virusGroup.rotation.y += 0.004;
-            virusGroup.rotation.x += 0.0015;
-            controls.update();
+            virusGroup.rotation.y += 0.005;
+            virusGroup.rotation.x += 0.002;
             renderer.render(scene, camera);
         }
         animate();
 
+        // Преоразмеряване
         window.addEventListener('resize', () => {
             if (!container3D) return;
             camera.aspect = container3D.clientWidth / container3D.clientHeight;

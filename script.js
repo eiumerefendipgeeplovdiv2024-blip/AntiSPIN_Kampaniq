@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
         navLinks.classList.toggle('active');
     });
 
-    // Затваряне на мобилното меню при клик върху линк
     document.querySelectorAll('.nav-item').forEach(link => {
         link.addEventListener('click', () => {
             navLinks.classList.remove('active');
@@ -330,7 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* =========================================
-       7. АНИМАЦИИ ПРИ СКРОЛИРАНЕ (INTERSECTION OBSERVER)
+       7. АНИМАЦИИ ПРИ СКРОЛИРАНЕ
        ========================================= */
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -341,4 +340,134 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    /* =========================================
+       8. 3D МОДЕЛ НА ВИРУСА ХИВ (THREE.JS)
+       ========================================= */
+    const container3D = document.getElementById('hiv3dContainer');
+    if (container3D && typeof THREE !== 'undefined') {
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, container3D.clientWidth / container3D.clientHeight, 0.1, 1000);
+        camera.position.z = 7.5;
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(container3D.clientWidth, container3D.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container3D.appendChild(renderer.domElement);
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.enablePan = false;
+        controls.minDistance = 4.5;
+        controls.maxDistance = 12;
+
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
+        scene.add(ambientLight);
+
+        const dirLight1 = new THREE.DirectionalLight(0xffffff, 0.9);
+        dirLight1.position.set(5, 5, 5);
+        scene.add(dirLight1);
+
+        const dirLight2 = new THREE.DirectionalLight(0xff8a80, 0.5);
+        dirLight2.position.set(-5, -3, -5);
+        scene.add(dirLight2);
+
+        const virusGroup = new THREE.Group();
+        scene.add(virusGroup);
+
+        // Външна липидна обвивка
+        const shellGeo = new THREE.SphereGeometry(2, 48, 48);
+        const shellMat = new THREE.MeshStandardMaterial({
+            color: 0x374151,
+            roughness: 0.45,
+            metalness: 0.1,
+            transparent: true,
+            opacity: 1
+        });
+        const shellMesh = new THREE.Mesh(shellGeo, shellMat);
+        virusGroup.add(shellMesh);
+
+        // Вътрешен капсид
+        const coreGeo = new THREE.CylinderGeometry(0.35, 0.7, 1.8, 24);
+        const coreMat = new THREE.MeshStandardMaterial({
+            color: 0xFFB74D,
+            roughness: 0.3,
+            metalness: 0.2
+        });
+        const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+        coreMesh.rotation.z = 0.3;
+        virusGroup.add(coreMesh);
+
+        // РНК спирали
+        const rnaGeo = new THREE.TorusKnotGeometry(0.28, 0.06, 64, 8);
+        const rnaMat = new THREE.MeshStandardMaterial({ color: 0xD32F2F });
+        const rnaMesh = new THREE.Mesh(rnaGeo, rnaMat);
+        virusGroup.add(rnaMesh);
+
+        // Шипове
+        const spikeGroup = new THREE.Group();
+        const stalkGeo = new THREE.CylinderGeometry(0.06, 0.08, 0.45, 12);
+        const stalkMat = new THREE.MeshStandardMaterial({ color: 0x9CA3AF });
+        const headGeo = new THREE.SphereGeometry(0.18, 16, 16);
+        const headMat = new THREE.MeshStandardMaterial({ color: 0xD32F2F, roughness: 0.3 });
+
+        const spikeCount = 42;
+        const goldenRatio = (1 + Math.sqrt(5)) / 2;
+
+        for (let i = 0; i < spikeCount; i++) {
+            const theta = 2 * Math.PI * i / goldenRatio;
+            const phi = Math.acos(1 - 2 * (i + 0.5) / spikeCount);
+
+            const dir = new THREE.Vector3(
+                Math.sin(phi) * Math.cos(theta),
+                Math.sin(phi) * Math.sin(theta),
+                Math.cos(phi)
+            );
+
+            const singleSpike = new THREE.Group();
+            const stalk = new THREE.Mesh(stalkGeo, stalkMat);
+            stalk.position.y = 2.15;
+
+            const head = new THREE.Mesh(headGeo, headMat);
+            head.position.y = 2.4;
+            head.scale.set(1.1, 0.85, 1.1);
+
+            singleSpike.add(stalk);
+            singleSpike.add(head);
+
+            singleSpike.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir);
+            spikeGroup.add(singleSpike);
+        }
+        virusGroup.add(spikeGroup);
+
+        // Разрез бутон
+        let isCutaway = false;
+        const toggleBtn = document.getElementById('toggleCutawayBtn');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                isCutaway = !isCutaway;
+                shellMat.opacity = isCutaway ? 0.22 : 1;
+                toggleBtn.innerHTML = isCutaway
+                    ? '<i class="fas fa-eye-slash"></i> Скрий разреза (плътна обвивка)'
+                    : '<i class="fas fa-eye"></i> Покажи вътрешността (разрез)';
+            });
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            virusGroup.rotation.y += 0.004;
+            virusGroup.rotation.x += 0.0015;
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            if (!container3D) return;
+            camera.aspect = container3D.clientWidth / container3D.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container3D.clientWidth, container3D.clientHeight);
+        });
+    }
 });

@@ -11,6 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome за икони -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Three.js и OrbitControls за 3D модела на вируса -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -90,7 +93,7 @@
         </div>
     </section>
 
-    <!-- 2. КАКВО СА ХИВ И СПИН? -->
+    <!-- 2. КАКВО СА ХИВ И СПИН? + 3D ВИРУС -->
     <section id="about-hiv" class="section bg-light">
         <div class="container">
             <div class="section-header fade-in">
@@ -134,6 +137,27 @@
                         <h4>Живот с терапия днес</h4>
                         <p>При ранно откриване и редовен прием на съвременни лекарства развитието на СПИН се предотвратява напълно. Човек живее <strong>дълъг, здрав и пълноценен живот</strong>.</p>
                     </div>
+                </div>
+            </div>
+
+            <!-- 3D МОДЕЛ НА ВИРУСА ХИВ -->
+            <div class="virus-3d-wrapper fade-in">
+                <div class="virus-3d-info">
+                    <span class="section-tag">3D Научна визуализация</span>
+                    <h3>Интерактивен 3D модел на вируса ХИВ</h3>
+                    <p>Завърти модела с мишката или пръст, за да разгледаш структурата на вируса:</p>
+                    <ul class="virus-legend">
+                        <li><span class="dot dot-red"></span> <strong>Шиповидни гликопротеини (gp120/gp41):</strong> Чрез тях вирусът се прикрепя към CD4 клетките.</li>
+                        <li><span class="dot dot-gray"></span> <strong>Липидна обвивка:</strong> Външната защитна мембрана на вируса.</li>
+                        <li><span class="dot dot-core"></span> <strong>Конусовиден капсид (сърцевина):</strong> Съдържа генетичния материал (РНК) и ензимите на вируса.</li>
+                    </ul>
+                    <button class="btn btn-outline-dark" id="toggleCutawayBtn">
+                        <i class="fas fa-eye"></i> Покажи вътрешността (разрез)
+                    </button>
+                </div>
+                <div class="virus-3d-canvas-box">
+                    <div id="hiv3dContainer"></div>
+                    <span class="canvas-hint"><i class="fas fa-sync-alt"></i> Завърти с мишката • Приближи със скрол</span>
                 </div>
             </div>
         </div>
@@ -253,7 +277,7 @@
         </div>
     </section>
 
-    <!-- 6. МИТОВЕ И ФАКТИ (ИНТЕРАКТИВНА СЕКЦИЯ) -->
+    <!-- 6. МИТОВЕ И ФАКТИ -->
     <section id="myths" class="section bg-light">
         <div class="container">
             <div class="section-header fade-in">
@@ -296,7 +320,7 @@
         </div>
     </section>
 
-    <!-- 8. ИНТЕРАКТИВЕН ТЕСТ (ВИКТОРИНА С 10 ВЪПРОСА) -->
+    <!-- 8. ИНТЕРАКТИВЕН ТЕСТ -->
     <section id="quiz" class="section bg-dark text-white">
         <div class="container">
             <div class="section-header fade-in">

@@ -3,387 +3,339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Образователна кампания АНТИСПИН - Информация за ХИВ и СПИН, превенция, изследвания и толерантност. Проект на Ешреф Юмерефенди, 10Б.">
     <title>АНТИСПИН Кампания | Образователен проект</title>
-    <!-- Google Fonts: Poppins & Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome за икони -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Three.js за 3D модела на вируса -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root { --primary-red: #D32F2F; --dark-red: #9A0007; --light-red: #FFEBEE; --dark-gray: #1E242B; --medium-gray: #4A5568; --light-gray: #F7F9FC; --border-gray: #E2E8F0; --white: #FFFFFF; --success-green: #2E7D32; --success-bg: #E8F5E9; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; color: var(--dark-gray); background-color: var(--white); line-height: 1.65; overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; font-weight: 700; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        .section { padding: 75px 0; }
+        .bg-light { background-color: var(--light-gray); }
+        .bg-dark { background-color: var(--dark-gray); }
+        .text-white { color: var(--white); }
+        .text-red { color: var(--primary-red); }
+
+        /* Навигация */
+        .navbar { position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border-gray); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 75px; }
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--dark-gray); font-family: 'Poppins', sans-serif; font-size: 1.4rem; }
+        .logo strong { color: var(--primary-red); }
+        .ribbon-icon { width: 28px; height: 35px; }
+        .nav-links { display: flex; align-items: center; gap: 20px; }
+        .nav-item { text-decoration: none; color: var(--dark-gray); font-weight: 500; font-size: 0.92rem; }
+        .nav-item:hover { color: var(--primary-red); }
+        .nav-cta { background-color: var(--primary-red); color: var(--white) !important; padding: 8px 18px; border-radius: 6px; font-weight: 600; }
+
+        /* Hero */
+        .hero { padding: 60px 0 40px; background: linear-gradient(135deg, #FFFFFF 0%, #FFF5F5 100%); border-bottom: 1px solid var(--border-gray); }
+        .hero-grid { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 40px; align-items: center; }
+        .badge { display: inline-flex; align-items: center; gap: 8px; background-color: var(--light-red); color: var(--primary-red); padding: 6px 14px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 18px; }
+        .hero h1 { font-size: 2.7rem; font-weight: 800; margin-bottom: 20px; }
+        .hero-subtitle { font-size: 1.12rem; color: var(--medium-gray); margin-bottom: 30px; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 8px; font-weight: 600; text-decoration: none; cursor: pointer; border: 2px solid transparent; }
+        .btn-primary { background-color: var(--primary-red); color: var(--white); }
+        .hero-card { background: var(--white); padding: 35px 25px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); text-align: center; border-top: 5px solid var(--primary-red); }
+
+        .stats-bar { margin-top: 45px; background-color: var(--dark-gray); color: var(--white); border-radius: 14px; padding: 25px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .stat-item { border-left: 3px solid var(--primary-red); padding-left: 15px; }
+        .stat-number { font-size: 1.6rem; font-weight: 800; color: #FF6B6B; display: block; }
+        .stat-label { font-size: 0.85rem; color: #CBD5E0; }
+
+        /* Секции и карти */
+        .section-header { text-align: center; max-width: 720px; margin: 0 auto 40px; }
+        .section-tag { color: var(--primary-red); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1.2px; display: block; margin-bottom: 8px; }
+        .section-header h2 { font-size: 2rem; margin-bottom: 10px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .info-card { background: var(--white); padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .border-red { border-top: 5px solid var(--primary-red); }
+        .border-dark { border-top: 5px solid var(--dark-gray); }
+        .card-icon { width: 45px; height: 45px; background-color: var(--light-red); color: var(--primary-red); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 15px; }
+        .dark-icon { background-color: #EDF2F7; color: var(--dark-gray); }
+
+        /* 3D Вирус */
+        .virus-3d-wrapper { margin-top: 35px; background: var(--white); border-radius: 14px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: grid; grid-template-columns: 1fr 1.1fr; gap: 25px; align-items: center; border-left: 5px solid var(--primary-red); }
+        .virus-legend { list-style: none; margin-bottom: 20px; }
+        .virus-legend li { display: flex; gap: 10px; margin-bottom: 8px; font-size: 0.9rem; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+        .dot-red { background: #D32F2F; } .dot-gray { background: #4A5568; } .dot-core { background: #FFB74D; }
+        .virus-3d-canvas-box { position: relative; background: radial-gradient(circle at center, #2D3748 0%, #1A202C 100%); border-radius: 12px; height: 350px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        #hiv3dContainer { width: 100%; height: 350px; }
+        .canvas-hint { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.6); color: #E2E8F0; font-size: 0.75rem; padding: 4px 10px; border-radius: 20px; }
+
+        /* Предаване */
+        .list-card { padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .yes-card { background: #FFF8F8; border: 1px solid #FFCDD2; color: var(--primary-red); }
+        .no-card { background: #F4FBF7; border: 1px solid #C8E6C9; color: var(--success-green); }
+        .list-card ul { list-style: none; }
+        .list-card li { margin-bottom: 12px; padding-left: 18px; position: relative; color: var(--dark-gray); font-size: 0.95rem; }
+
+        /* Тест */
+        .quiz-box { max-width: 720px; margin: 0 auto; background: var(--white); color: var(--dark-gray); padding: 30px; border-radius: 14px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        .progress-bar { width: 100%; height: 6px; background: var(--border-gray); border-radius: 10px; overflow: hidden; margin-top: 6px; margin-bottom: 20px; }
+        .progress-fill { height: 100%; width: 10%; background: var(--primary-red); }
+        .options-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+        .option-btn { text-align: left; padding: 12px 16px; border: 2px solid var(--border-gray); background: var(--white); border-radius: 8px; font-size: 0.95rem; cursor: pointer; }
+        .option-btn.correct { border-color: var(--success-green); background: var(--success-bg); color: var(--success-green); font-weight: 600; }
+        .option-btn.wrong { border-color: var(--primary-red); background: var(--light-red); color: var(--primary-red); }
+        .feedback-box { padding: 12px; border-radius: 6px; margin-bottom: 15px; font-size: 0.9rem; background: var(--light-gray); border-left: 4px solid var(--dark-gray); }
+        .hidden { display: none !important; }
+        .result-circle { width: 100px; height: 100px; border-radius: 50%; background: var(--light-red); color: var(--primary-red); display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 1.6rem; font-weight: 800; border: 4px solid var(--primary-red); }
+
+        .project-card { background: var(--light-gray); border-radius: 16px; padding: 40px; text-align: center; max-width: 800px; margin: 0 auto; border: 1px solid var(--border-gray); }
+        .author-info { display: flex; justify-content: center; gap: 25px; background: var(--white); padding: 12px 20px; border-radius: 8px; margin: 20px 0; border: 1px solid var(--border-gray); }
+        .footer { background: var(--dark-gray); color: var(--white); padding: 30px 0; text-align: center; border-top: 4px solid var(--primary-red); }
+
+        @media (max-width: 900px) {
+            .hero-grid, .virus-3d-wrapper, .grid-2 { grid-template-columns: 1fr; }
+            .stats-bar { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Навигация -->
-    <header class="navbar" id="navbar">
+    <header class="navbar">
         <div class="container nav-container">
             <a href="#home" class="logo">
-                <svg class="ribbon-icon" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M32 6C20 6 14 15 14 25C14 35 24 44 32 52L46 68L54 61L39 44C46 37 50 30 50 25C50 15 44 6 32 6ZM32 16C37 16 40 20 40 25C40 29 36 33 32 37C28 33 24 29 24 25C24 20 27 16 32 16Z" fill="#D32F2F"/>
+                <svg class="ribbon-icon" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M32 6C20 6 14 15 14 25C14 35 24 44 32 52L46 68L54 61L39 44C46 37 50 30 50 25C50 15 44 6 32 6Z" fill="#D32F2F"/>
                     <path d="M25 44L10 61L18 68L32 52L25 44Z" fill="#B71C1C"/>
                 </svg>
                 <span>АНТИ<strong>СПИН</strong></span>
             </a>
-
-            <nav class="nav-links" id="navLinks">
+            <nav class="nav-links">
                 <a href="#home" class="nav-item">Начало</a>
                 <a href="#about-hiv" class="nav-item">ХИВ и СПИН</a>
                 <a href="#transmission" class="nav-item">Предаване</a>
-                <a href="#prevention" class="nav-item">Превенция</a>
-                <a href="#testing" class="nav-item">Изследвания</a>
-                <a href="#myths" class="nav-item">Митове и факти</a>
-                <a href="#tolerance" class="nav-item">Толерантност</a>
                 <a href="#quiz" class="nav-item nav-cta">Тест</a>
             </nav>
-
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Отвори меню">
-                <i class="fas fa-bars"></i>
-            </button>
         </div>
     </header>
 
-    <!-- 1. НАЧАЛО -->
     <section id="home" class="hero">
         <div class="container hero-grid">
-            <div class="hero-content fade-in">
-                <div class="badge">
-                    <i class="fas fa-ribbon"></i> Образователна здравна инициатива
-                </div>
+            <div>
+                <div class="badge"><i class="fas fa-ribbon"></i> Здравна инициатива</div>
                 <h1>ИНФОРМИРАЙ СЕ.<br>ПРЕДПАЗИ СЕ.<br><span class="text-red">БЪДИ ОТГОВОРЕН.</span></h1>
-                <p class="hero-subtitle">
-                    Достоверна научна информация за ХИВ и СПИН, начините на предпазване, съвременното лечение и силата на подкрепата без предразсъдъци.
-                </p>
-                <div class="hero-buttons">
-                    <a href="#about-hiv" class="btn btn-primary">Научи повече <i class="fas fa-arrow-right"></i></a>
-                    <a href="#quiz" class="btn btn-outline">Провери знанията си</a>
-                </div>
+                <p class="hero-subtitle">Образователна платформа за ХИВ, СПИН и превенция без предразсъдъци.</p>
+                <a href="#about-hiv" class="btn btn-primary">Научи повече <i class="fas fa-arrow-right"></i></a>
             </div>
-
-            <div class="hero-visual fade-in">
-                <div class="hero-card">
-                    <svg class="hero-ribbon-large" viewBox="0 0 120 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M60 10C36 10 24 28 24 48C24 68 44 85 60 102L88 134L104 120L74 86C88 72 96 58 96 48C96 28 84 10 60 10ZM60 28C71 28 77 36 77 48C77 56 69 65 60 73C51 65 43 56 43 48C43 36 49 28 60 28Z" fill="#D32F2F"/>
-                        <path d="M46 86L16 120L32 134L60 102L46 86Z" fill="#9A0007"/>
-                    </svg>
-                    <h3>Символ на солидарност</h3>
-                    <p>Червената лента е международен символ на осведоменост за ХИВ/СПИН и подкрепа към засегнатите хора.</p>
-                </div>
+            <div class="hero-card">
+                <h3>Символ на солидарност</h3>
+                <p>Червената лента е международен символ на осведоменост и подкрепа.</p>
             </div>
         </div>
-
-        <div class="container stats-bar fade-in">
-            <div class="stat-item">
-                <span class="stat-number">39.9 млн.</span>
-                <span class="stat-label">хора по света живеят с ХИВ (UNAIDS, данни за 2023 г.)</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">30.7 млн.</span>
-                <span class="stat-label">души имат достъп до животоспасяваща терапия (UNAIDS, 2023 г.)</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">U = U</span>
-                <span class="stat-label">Неоткриваем вирусен товар = Непредаваем по полов път (СЗО)</span>
-            </div>
+        <div class="container stats-bar">
+            <div class="stat-item"><span class="stat-number">39.9 млн.</span><span class="stat-label">хора по света живеят с ХИВ (UNAIDS)</span></div>
+            <div class="stat-item"><span class="stat-number">30.7 млн.</span><span class="stat-label">с достъп до терапия</span></div>
+            <div class="stat-item"><span class="stat-number">U = U</span><span class="stat-label">Неоткриваем = Непредаваем</span></div>
         </div>
     </section>
 
-    <!-- 2. КАКВО СА ХИВ И СПИН? + 3D ВИРУС -->
     <section id="about-hiv" class="section bg-light">
         <div class="container">
-            <div class="section-header fade-in">
+            <div class="section-header">
                 <span class="section-tag">Медицински основи</span>
                 <h2>Какво са ХИВ и СПИН?</h2>
-                <p>Разбирането на разликата между вируса и синдрома е първата стъпка към премахване на страха.</p>
             </div>
-
-            <div class="grid-2 fade-in">
+            <div class="grid-2">
                 <div class="info-card border-red">
                     <div class="card-icon"><i class="fas fa-virus"></i></div>
-                    <h3>Какво представлява ХИВ?</h3>
-                    <p><strong>ХИВ (Човешки имунодефицитен вирус)</strong> е вирус, който атакува имунната система на човека, и по-конкретно белите кръвни клетки, наречени <strong>CD4 Т-лимфоцити</strong>.</p>
-                    <p>Ако не се лекува, ХИВ постепенно намалява броя на CD4 клетките и отслабва естествената защита на тялото.</p>
+                    <h3>ХИВ</h3>
+                    <p>Човешкият имунодефицитен вирус атакува имунната система и белите кръвни клетки (CD4).</p>
                 </div>
-
                 <div class="info-card border-dark">
                     <div class="card-icon dark-icon"><i class="fas fa-shield-virus"></i></div>
-                    <h3>Какво представлява СПИН?</h3>
-                    <p><strong>СПИН (Синдром на придобитата имунна недостатъчност)</strong> е най-напредналият стадий на инфекцията с ХИВ. Той настъпва, когато имунната система е силно увредена.</p>
-                    <p><strong>Важно:</strong> ХИВ е вирусът, а СПИН е състоянието. Не всеки човек с ХИВ развива СПИН!</p>
+                    <h3>СПИН</h3>
+                    <p>Най-напредналият стадий на инфекцията, който настъпва само при липса на лечение.</p>
                 </div>
             </div>
 
-            <div class="timeline-box fade-in">
-                <h3>Как се развива инфекцията без лечение и каква е ролята на медицината?</h3>
-                <div class="grid-3">
-                    <div class="step-card">
-                        <span class="step-num">1</span>
-                        <h4>Остра ХИВ инфекция</h4>
-                        <p>Настъпва 2–4 седмици след заразяване. Може да протече без симптоми или с грипоподобни прояви.</p>
-                    </div>
-                    <div class="step-card">
-                        <span class="step-num">2</span>
-                        <h4>Хроничен (латентен) стадий</h4>
-                        <p>Вирусът се размножава бавно в организма. Човек може да няма никакви симптоми в продължение на години.</p>
-                    </div>
-                    <div class="step-card">
-                        <span class="step-num">3</span>
-                        <h4>Живот с терапия днес</h4>
-                        <p>При ранно откриване и редовен прием на съвременни лекарства развитието на СПИН се предотвратява напълно.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3D МОДЕЛ НА ВИРУСА ХИВ -->
-            <div class="virus-3d-wrapper fade-in">
-                <div class="virus-3d-info">
-                    <span class="section-tag">3D Научна визуализация</span>
-                    <h3>Интерактивен 3D модел на вируса ХИВ</h3>
-                    <p>Интерактивна триизмерна структура на вируса:</p>
+            <!-- 3D Вирус -->
+            <div class="virus-3d-wrapper">
+                <div>
+                    <span class="section-tag">3D Визуализация</span>
+                    <h3>Интерактивен модел на вируса ХИВ</h3>
                     <ul class="virus-legend">
-                        <li><span class="dot dot-red"></span> <strong>Шиповидни гликопротеини (gp120/gp41):</strong> Прикрепват вируса към CD4 клетките.</li>
+                        <li><span class="dot dot-red"></span> <strong>Шипове (gp120):</strong> Прикрепват вируса към клетките.</li>
                         <li><span class="dot dot-gray"></span> <strong>Липидна обвивка:</strong> Външна защитна мембрана.</li>
-                        <li><span class="dot dot-core"></span> <strong>Конусовиден капсид:</strong> Съдържа генетичния материал (РНК).</li>
+                        <li><span class="dot dot-core"></span> <strong>Капсид:</strong> Съдържа генетичния материал.</li>
                     </ul>
-                    <button class="btn btn-outline-dark" id="toggleCutawayBtn">
-                        <i class="fas fa-eye"></i> Покажи вътрешността (разрез)
-                    </button>
+                    <button class="btn btn-primary" id="toggleCutawayBtn"><i class="fas fa-eye"></i> Покажи разрез</button>
                 </div>
                 <div class="virus-3d-canvas-box">
                     <div id="hiv3dContainer"></div>
-                    <span class="canvas-hint"><i class="fas fa-sync-alt"></i> Автоматично въртене в реално време</span>
+                    <span class="canvas-hint">Автоматично въртене в реално време</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 3. НАЧИНИ НА ПРЕДАВАНЕ -->
     <section id="transmission" class="section">
         <div class="container">
-            <div class="section-header fade-in">
+            <div class="section-header">
                 <span class="section-tag">Научни факти</span>
-                <h2>Начини на предаване на ХИВ</h2>
-                <p>ХИВ се съдържа в определени телесни течности и изисква директен път за навлизане в кръвообращението.</p>
+                <h2>Начини на предаване</h2>
             </div>
-
-            <div class="grid-2 fade-in">
+            <div class="grid-2">
                 <div class="list-card yes-card">
-                    <h3><i class="fas fa-exclamation-circle"></i> Как СЕ предава ХИВ:</h3>
+                    <h3>Как СЕ предава:</h3>
                     <ul>
-                        <li><strong>Незащитени полови контакти:</strong> Вагинален, анален или орален секс без презерватив.</li>
-                        <li><strong>Контакт със заразена кръв:</strong> Споделяне на игли, спринцовки или нестерилни инструменти.</li>
-                        <li><strong>От майка на бебе:</strong> По време на бременност, раждане или кърмене.</li>
+                        <li>Незащитени полови контакти без презерватив.</li>
+                        <li>Споделяне на общи игли или нестерилни инструменти.</li>
+                        <li>От майка на бебе по време на бременност/кърмене.</li>
                     </ul>
                 </div>
-
                 <div class="list-card no-card">
-                    <h3><i class="fas fa-check-circle"></i> Как НЕ СЕ предава ХИВ:</h3>
+                    <h3>Как НЕ СЕ предава:</h3>
                     <ul>
-                        <li><strong>Ежедневни контакти:</strong> Прегръдки, ръкостискане, целувки по бузата.</li>
-                        <li><strong>Общи предмети:</strong> Прибори, чаши, кърпи, тоалетни седалки.</li>
-                        <li><strong>Въздух, вода и насекоми:</strong> Кашляне, кихане, ухапвания от комари.</li>
+                        <li>Прегръдки, ръкостискане и целувки.</li>
+                        <li>Общи прибори, чаши и тоалетни седалки.</li>
+                        <li>Ухапвания от комари или насекоми.</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 4. ПРЕВЕНЦИЯ -->
-    <section id="prevention" class="section bg-light">
-        <div class="container">
-            <div class="section-header fade-in">
-                <span class="section-tag">Защита и отговорност</span>
-                <h2>Превенция на ХИВ</h2>
-                <p>Информираността и отговорното поведение са най-сигурният щит срещу инфекцията.</p>
-            </div>
-
-            <div class="grid-4 fade-in">
-                <div class="prev-card">
-                    <div class="prev-icon"><i class="fas fa-shield-heart"></i></div>
-                    <h3>Бариерна защита</h3>
-                    <p>Редовната употреба на презервативи е най-достъпният метод за защита.</p>
-                </div>
-                <div class="prev-card">
-                    <div class="prev-icon"><i class="fas fa-syringe"></i></div>
-                    <h3>Стерилни инструменти</h3>
-                    <p>Никога не споделяйте игли и използвайте лицензирани студиа.</p>
-                </div>
-                <div class="prev-card">
-                    <div class="prev-icon"><i class="fas fa-pills"></i></div>
-                    <h3>PrEP профилактика</h3>
-                    <p>Медикаменти за ХИВ-негативни хора в повишен риск преди евентуален контакт.</p>
-                </div>
-                <div class="prev-card">
-                    <div class="prev-icon"><i class="fas fa-clock"></i></div>
-                    <h3>PEP терапия</h3>
-                    <p>Спешен курс до 72 часа след рискова ситуация.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 5. ИЗСЛЕДВАНИЯ И ЛЕЧЕНИЕ -->
-    <section id="testing" class="section">
-        <div class="container">
-            <div class="section-header fade-in">
-                <span class="section-tag">Диагностика и медицина</span>
-                <h2>Изследвания и съвременно лечение</h2>
-                <p>Единственият сигурен начин човек да разбере своя ХИВ статус е чрез тест.</p>
-            </div>
-
-            <div class="grid-2 fade-in">
-                <div class="detail-box">
-                    <h3><i class="fas fa-vial"></i> Тест за ХИВ</h3>
-                    <p>Бързите тестове с капка кръв от пръста дават резултат за 15–20 минути.</p>
-                    <h4>Къде в България?</h4>
-                    <p>В кабинетите за анонимно и безплатно консултиране и изследване (КАБКИС) към РЗИ.</p>
-                </div>
-
-                <div class="detail-box treatment-box">
-                    <h3><i class="fas fa-capsules"></i> Съвременно лечение</h3>
-                    <p>Антиретровирусната терапия (АРТ) потиска вируса и поддържа имунната система здрава.</p>
-                    <div class="uu-banner">
-                        <div class="uu-badge">U = U</div>
-                        <div>
-                            <h4>Неоткриваем = Непредаваем</h4>
-                            <p>Когато вирусният товар е неоткриваем, ХИВ не може да бъде предаден по полов път.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 6. МИТОВЕ И ФАКТИ -->
-    <section id="myths" class="section bg-light">
-        <div class="container">
-            <div class="section-header fade-in">
-                <span class="section-tag">Провери истината</span>
-                <h2>Митове и факти за ХИВ</h2>
-                <p>Натисни върху всяка карта, за да провериш твърдението.</p>
-            </div>
-            <div class="myths-grid fade-in" id="mythsContainer"></div>
-        </div>
-    </section>
-
-    <!-- 7. ТОЛЕРАНТНОСТ И ПОДКРЕПА -->
-    <section id="tolerance" class="section">
-        <div class="container">
-            <div class="section-header fade-in">
-                <span class="section-tag">Човечност и емпатия</span>
-                <h2>Толерантност и подкрепа</h2>
-            </div>
-            <div class="tolerance-wrapper fade-in">
-                <div class="tolerance-content">
-                    <h3>Стигма и дискриминация</h3>
-                    <p>Стигмата е основната бариера пред ранното изследване и лечение. Подкрепата и разбирането са от съществено значение.</p>
-                </div>
-                <div class="quote-card">
-                    <i class="fas fa-quote-left"></i>
-                    <blockquote>„ХИВ не определя човека. Информираността премахва страха.“</blockquote>
-                    <span class="quote-sub">Бъди част от поколението без предразсъдъци.</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 8. ИНТЕРАКТИВЕН ТЕСТ -->
     <section id="quiz" class="section bg-dark text-white">
         <div class="container">
-            <div class="section-header fade-in">
-                <span class="section-tag tag-light">Образователно предизвикателство</span>
+            <div class="section-header">
+                <span class="section-tag tag-light">Предизвикателство</span>
                 <h2>Интерактивен тест</h2>
-                <p>Отговори на 10 въпроса и провери нивото си на информираност.</p>
             </div>
-
-            <div class="quiz-box fade-in" id="quizContainer">
+            <div class="quiz-box" id="quizContainer">
                 <div class="quiz-header">
-                    <span id="questionCounter">Въпрос 1 от 10</span>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
+                    <span id="questionCounter" style="color:var(--primary-red); font-weight:700;">Въпрос 1 от 3</span>
+                    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
                 </div>
-
                 <div id="quizBody">
-                    <h3 id="questionText">Зареждане...</h3>
+                    <h3 id="questionText" style="margin-bottom:15px; font-size:1.1rem;">Зареждане...</h3>
                     <div class="options-list" id="optionsList"></div>
                     <div class="feedback-box hidden" id="feedbackBox"></div>
-                    <button class="btn btn-primary hidden" id="nextBtn">Следващ въпрос <i class="fas fa-arrow-right"></i></button>
+                    <button class="btn btn-primary hidden" id="nextBtn">Следващ въпрос</button>
                 </div>
-
-                <div id="quizResult" class="hidden">
-                    <div class="result-circle"><span id="scoreDisplay">0/10</span></div>
-                    <h3 id="resultTitle">Резултат</h3>
-                    <p id="resultMessage"></p>
-                    <button class="btn btn-primary" id="restartBtn"><i class="fas fa-redo"></i> Направи теста отново</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 9. РЕСУРСИ -->
-    <section id="resources" class="section bg-light">
-        <div class="container">
-            <div class="grid-2 fade-in">
-                <div>
-                    <span class="section-tag">Бързи отговори</span>
-                    <h2>Често задавани въпроси (FAQ)</h2>
-                    <div class="faq-list">
-                        <div class="faq-item">
-                            <button class="faq-question">Може ли човек с ХИВ да има здрави деца? <i class="fas fa-chevron-down"></i></button>
-                            <div class="faq-answer"><p>Да, при правилна терапия рискът за бебето е под 1%.</p></div>
-                        </div>
-                        <div class="faq-item">
-                            <button class="faq-question">Открива ли се ХИВ при обикновена кръвна картина? <i class="fas fa-chevron-down"></i></button>
-                            <div class="faq-answer"><p>Не, нужен е специфичен тест за ХИВ антитела/антигени.</p></div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <span class="section-tag">Надеждни източници</span>
-                    <h2>Полезни ресурси</h2>
-                    <div class="resources-list">
-                        <a href="https://www.who.int/health-topics/hiv-aids" target="_blank" rel="noopener noreferrer" class="resource-card">
-                            <div class="res-info"><strong>Световна здравна организация (СЗО)</strong><span>Глобални здравни насоки</span></div>
-                            <i class="fas fa-external-link-alt"></i>
-                        </a>
-                        <a href="https://www.mh.government.bg/" target="_blank" rel="noopener noreferrer" class="resource-card">
-                            <div class="res-info"><strong>Министерство на здравеопазването</strong><span>Национална програма за превенция</span></div>
-                            <i class="fas fa-external-link-alt"></i>
-                        </a>
-                    </div>
+                <div id="quizResult" class="hidden" style="text-align:center;">
+                    <div class="result-circle"><span id="scoreDisplay">0/3</span></div>
+                    <h3>Резултат</h3>
+                    <p id="resultMessage" style="color:var(--medium-gray); margin-bottom:15px;"></p>
+                    <button class="btn btn-primary" id="restartBtn">Нов опит</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 10. ЗА ПРОЕКТА -->
-    <section id="about-project" class="section">
+    <section class="section">
         <div class="container">
-            <div class="project-card fade-in">
-                <div class="project-badge">Училищен образователен проект</div>
-                <h2>За кампанията „АНТИСПИН“</h2>
-                <p>Платформа за повишаване на здравната култура и борба със стигмата.</p>
+            <div class="project-card">
+                <div class="section-tag">Училищен проект</div>
+                <h2>Кампания „АНТИСПИН“</h2>
                 <div class="author-info">
                     <div><strong>Автор:</strong> Ешреф Юмерефенди</div>
                     <div><strong>Клас:</strong> 10Б</div>
                 </div>
-                <div class="final-motto">„ЗНАНИЕТО Е НАЙ-СИЛНОТО СРЕДСТВО СРЕЩУ СТРАХА И ПРЕДРАЗСЪДЪЦИТЕ.“</div>
-                <button class="btn btn-outline-dark" id="shareBtn"><i class="fas fa-share-alt"></i> Сподели кампанията</button>
-                <span id="shareFeedback" class="share-feedback"></span>
+                <p style="color:var(--medium-gray); font-weight:600;">„ЗНАНИЕТО Е НАЙ-СИЛНОТО СРЕДСТВО СРЕЩУ СТРАХА И ПРЕДРАЗСЪДЪЦИТЕ.“</p>
             </div>
         </div>
     </section>
 
     <footer class="footer">
-        <div class="container">
-            <p class="footer-main">АНТИСПИН КАМПАНИЯ | Образователен проект | Ешреф Юмерефенди – 10Б</p>
-        </div>
+        <div class="container"><p>АНТИСПИН КАМПАНИЯ | Образователен проект | Ешреф Юмерефенди – 10Б</p></div>
     </footer>
 
-    <button id="scrollTopBtn" class="scroll-top" aria-label="Върни се най-горе"><i class="fas fa-arrow-up"></i></button>
-    <script src="script.js"></script>
+    <script>
+        const quizQuestions = [
+            { question: "1. Каква е разликата между ХИВ и СПИН?", options: ["Няма разлика", "ХИВ е вирусът, а СПИН е най-напредналият стадий", "СПИН е вирусът"], correct: 1, explanation: "ХИВ е вирусът, а СПИН е състоянието при липса на лечение." },
+            { question: "2. По кой начин МОЖЕ да се предаде ХИВ?", options: ["При незащитен полов контакт или игли", "При пиене от обща чаша", "От ухапване от комар"], correct: 0, explanation: "ХИВ се предава по полов и кръвен път." },
+            { question: "3. Какво означава U = U?", options: ["Универсален уред", "Неоткриваем вирусен товар = Непредаваем", "Успешен удар"], correct: 1, explanation: "При неоткриваем вирусен товар вирусът не се предава по полов път." }
+        ];
+
+        let currentQ = 0, score = 0;
+        const qText = document.getElementById('questionText'), optList = document.getElementById('optionsList'), fbBox = document.getElementById('feedbackBox'), nextBtn = document.getElementById('nextBtn'), counter = document.getElementById('questionCounter'), fill = document.getElementById('progressFill');
+        
+        function loadQ() {
+            let q = quizQuestions[currentQ];
+            qText.textContent = q.question;
+            counter.textContent = `Въпрос ${currentQ + 1} от ${quizQuestions.length}`;
+            fill.style.width = `${((currentQ + 1) / quizQuestions.length) * 100}%`;
+            optList.innerHTML = '';
+            fbBox.classList.add('hidden');
+            nextBtn.classList.add('hidden');
+            q.options.forEach((opt, idx) => {
+                let btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = opt;
+                btn.onclick = () => {
+                    document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+                    if(idx === q.correct) { btn.classList.add('correct'); score++; fbBox.innerHTML = `<strong>Верен отговор!</strong> ${q.explanation}`; }
+                    else { btn.classList.add('wrong'); document.querySelectorAll('.option-btn')[q.correct].classList.add('correct'); fbBox.innerHTML = `<strong>Грешен отговор.</strong> ${q.explanation}`; }
+                    fbBox.classList.remove('hidden');
+                    nextBtn.classList.remove('hidden');
+                };
+                optList.appendChild(btn);
+            });
+        }
+        nextBtn.onclick = () => {
+            currentQ++;
+            if(currentQ < quizQuestions.length) loadQ();
+            else {
+                document.getElementById('quizBody').classList.add('hidden');
+                let res = document.getElementById('quizResult');
+                res.classList.remove('hidden');
+                document.getElementById('scoreDisplay').textContent = `${score}/${quizQuestions.length}`;
+                document.getElementById('resultMessage').textContent = score >= 2 ? "Отлично познаване на темата!" : "Прегледай информацията отново!";
+            }
+        };
+        document.getElementById('restartBtn').onclick = () => { currentQ=0; score=0; document.getElementById('quizResult').classList.add('hidden'); document.getElementById('quizBody').classList.remove('hidden'); loadQ(); };
+        loadQ();
+
+        const c3D = document.getElementById('hiv3dContainer');
+        if(c3D && typeof THREE !== 'undefined') {
+            const w = c3D.clientWidth || 400, h = c3D.clientHeight || 350;
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(50, w/h, 0.1, 1000);
+            camera.position.set(0, 0, 6.5);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(w, h);
+            c3D.appendChild(renderer.domElement);
+            scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+            const light = new THREE.DirectionalLight(0xffffff, 1.2); light.position.set(5, 5, 5); scene.add(light);
+
+            const virus = new THREE.Group(); scene.add(virus);
+            const shellMat = new THREE.MeshStandardMaterial({ color: 0x374151, roughness: 0.4, transparent: true, opacity: 1 });
+            virus.add(new THREE.Mesh(new THREE.SphereGeometry(1.8, 32, 32), shellMat));
+            
+            const core = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.5, 1.4, 16), new THREE.MeshStandardMaterial({ color: 0xFFB74D }));
+            core.rotation.z = 0.3; virus.add(core);
+
+            for(let i=0; i<30; i++) {
+                let phi = Math.acos(-1 + (2 * i) / 30), theta = Math.sqrt(30 * Math.PI) * phi;
+                let spike = new THREE.Group();
+                let stalk = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.06, 0.35, 6), new THREE.MeshStandardMaterial({color: 0x9CA3AF})); stalk.position.y = 1.95;
+                let head = new THREE.Mesh(new THREE.SphereGeometry(0.14, 10, 10), new THREE.MeshStandardMaterial({color: 0xD32F2F})); head.position.y = 2.18;
+                spike.add(stalk); spike.add(head);
+                spike.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), new THREE.Vector3(Math.cos(theta)*Math.sin(phi), Math.sin(theta)*Math.sin(phi), Math.cos(phi)));
+                virus.add(spike);
+            }
+
+            let cut = false;
+            document.getElementById('toggleCutawayBtn').onclick = () => {
+                cut = !cut; shellMat.opacity = cut ? 0.25 : 1;
+                document.getElementById('toggleCutawayBtn').innerHTML = cut ? '<i class="fas fa-eye-slash"></i> Скрий разрез' : '<i class="fas fa-eye"></i> Покажи разрез';
+            };
+
+            function animate() {
+                requestAnimationFrame(animate);
+                virus.rotation.y += 0.005; virus.rotation.x += 0.002;
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+    </script>
 </body>
 </html>

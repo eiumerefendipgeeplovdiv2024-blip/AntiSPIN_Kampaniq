@@ -1,23 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    /* 1. МОБИЛНО МЕНЮ */
+    // Мобилно меню
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const navLinks = document.getElementById('navLinks');
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
+    if (mobileMenuBtn && navLinks) {
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+        });
         document.querySelectorAll('.nav-item').forEach(link => {
             link.addEventListener('click', () => navLinks.classList.remove('active'));
         });
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
     }
 
-    /* 2. МИТОВЕ И ФАКТИ */
+    // Митове и факти
     const mythsData = [
         { statement: "„ХИВ се предава чрез прегръдка, ръкостискане или целувка по бузата.“", type: "МИТ", isFact: false, explanation: "ХИВ не се предава чрез ежедневен физически или социален контакт." },
-        { statement: "„ХИВ може да се предаде чрез ухапване от комар.“", type: "МИТ", isFact: false, explanation: "Комарите не пренасят ХИВ, тъй като вирусът не оцелява в тях." },
-        { statement: "„Хората с ХИВ могат да водят напълно нормален и дълъг живот.“", type: "ФАКТ", isFact: true, explanation: "Благодарение на АРТ терапията, продължителността на живота е нормална." },
-        { statement: "„Човек може да изглежда напълно здрав и да живее с ХИВ.“", type: "ФАКТ", isFact: true, explanation: "Инфекцията може да протича без симптоми с години." },
-        { statement: "„Ако човек с ХИВ приема редовно терапията си и има неоткриваем вирусен товар, той не предава вируса по полов път.“", type: "ФАКТ", isFact: true, explanation: "Това е научно доказаният принцип U=U." },
-        { statement: "„Използването на общи прибори за хранене или общ басейн води до заразяване.“", type: "МИТ", isFact: false, explanation: "Вирусът е изключително неустойчив извън човешкото тяло." }
+        { statement: "„ХИВ може да се предаде чрез ухапване от комар.“", type: "МИТ", isFact: false, explanation: "Насекомите не пренасят ХИВ, тъй като вирусът не оцелява и не се реплицира в тях." },
+        { statement: "„Хората с ХИВ могат да водят напълно нормален и дълъг живот при лечение.“", type: "ФАКТ", isFact: true, explanation: "С ранна диагностика и редовна антиретровирусна терапия продължителността на живота е напълно нормална." },
+        { statement: "„Човек може да изглежда напълно здрав и да живее с ХИВ.“", type: "ФАКТ", isFact: true, explanation: "Латентният стадий може да продължи дълги години без никакви видими симптоми." },
+        { statement: "„При неоткриваем вирусен товар човек не предава вируса по полов път (U=U).“", type: "ФАКТ", isFact: true, explanation: "Това е научно доказаният принцип U=U (Undetectable = Untransmittable), утвърден от СЗО." },
+        { statement: "„Използването на общи прибори за хранене води до заразяване.“", type: "МИТ", isFact: false, explanation: "Вирусът е изключително неустойчив извън човешкото тяло и се инактивира бързо." }
     ];
 
     const mythsContainer = document.getElementById('mythsContainer');
@@ -38,18 +46,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* 3. ИНТЕРАКТИВЕН ТЕСТ */
+    // Тест с 10 въпроса
     const quizQuestions = [
-        { question: "1. Каква е основната разлика между ХИВ и СПИН?", options: ["Няма разлика", "ХИВ е вирусът, а СПИН е най-напредналият стадий", "СПИН е вирусът"], correct: 1, explanation: "ХИВ е вирусът, а СПИН е състоянието при липса на лечение." },
-        { question: "2. Кои клетки на имунната система атакува ХИВ?", options: ["Еритроцити", "CD4 Т-лимфоцити", "Нервни клетки"], correct: 1, explanation: "ХИВ атакува CD4 белите кръвни клетки." },
-        { question: "3. По кой от изброените начини МОЖЕ да се предаде ХИВ?", options: ["При незащитен полов контакт или споделяне на игли", "При пиене от обща чаша", "При ухапване от комар"], correct: 0, explanation: "Предава се по кръвен и полов път." },
+        { question: "1. Каква е основната разлика между ХИВ и СПИН?", options: ["Няма разлика", "ХИВ е вирусът, а СПИН е най-напредналият стадий", "СПИН е вирусът"], correct: 1, explanation: "ХИВ е вирусът, а СПИН е клиничният синдром при липса на лечение." },
+        { question: "2. Кои имунни клетки основно атакува ХИВ?", options: ["Еритроцити", "CD4 Т-лимфоцити", "Нервни клетки"], correct: 1, explanation: "ХИВ навлиза и уврежда главно CD4 белите кръвни клетки." },
+        { question: "3. По кой от изброените начини МОЖЕ да се предаде ХИВ?", options: ["При незащитен полов контакт или нестерилни игли", "При пиене от обща чаша", "При ухапване от комар"], correct: 0, explanation: "Основните пътища са полов, кръвен и от майка на бебе." },
         { question: "4. Какво означава медицинският принцип U = U?", options: ["Универсален = Устойчив", "Неоткриваем вирусен товар = Непредаваем", "Успешно изследване"], correct: 1, explanation: "Неоткриваем вирусен товар означава невъзможност за предаване по полов път." },
-        { question: "5. Какво представлява PEP?", options: ["Ваксина", "Спешен курс с лекарства до 72 часа след рисков контакт", "Витамини"], correct: 1, explanation: "PEP е постекспозиционна профилактика." },
-        { question: "6. Какво е PrEP?", options: ["Профилактични медикаменти преди евентуален контакт за ХИВ-негативни", "Домашен тест", "Антибиотик"], correct: 0, explanation: "PrEP предпазва от заразяване." },
-        { question: "7. Къде в България се правят безплатни изследвания?", options: ["В КАБКИС към РЗИ", "Само в чужбина", "Платено е навсякъде"], correct: 0, explanation: "КАБКИС към РЗИ предлага безплатни тестове." },
-        { question: "8. Може ли да се разбере ХИВ статусът по външния вид?", options: ["Да", "Не, човек може да изглежда напълно здрав", "Само по очите"], correct: 1, explanation: "Тестът е единственият начин." },
-        { question: "9. Кой е международният символ на солидарност?", options: ["Синята звезда", "Червената лента", "Зеленият кръг"], correct: 1, explanation: "Червената лента е символът." },
-        { question: "10. Защо борбата със стигмата е важна?", options: ["Насърчава ранното тестване и лечение", "Няма значение", "Лекува вируса"], correct: 0, explanation: "Премахването на страха води до по-добро здраве." }
+        { question: "5. Какво представлява PEP терапията?", options: ["Ваксина", "Спешен курс с лекарства до 72 часа след рисков контакт", "Витамини"], correct: 1, explanation: "PEP е спешна пост-експозиционна профилактика." },
+        { question: "6. Какво е приложението на PrEP?", options: ["Профилактичен прием преди евентуален риск", "Домашен тест", "Антибиотик"], correct: 0, explanation: "PrEP се приема предварително от ХИВ-негативни хора за защита." },
+        { question: "7. Къде в България се правят безплатни анонимни изследвания?", options: ["В КАБКИС към РЗИ", "Само в чужбина", "Платено е навсякъде"], correct: 0, explanation: "КАБКИС кабинетите към Регионалните здравни инспекции предлагат безплатни тестове." },
+        { question: "8. Може ли да се разбере ХИВ статусът по външния вид на човек?", options: ["Да", "Не, човек може да изглежда напълно здрав", "Само по очите"], correct: 1, explanation: "Единственият сигурен начин е лабораторно изследване (тест)." },
+        { question: "9. Кой е международният символ на солидарност с засегнатите?", options: ["Синята звезда", "Червената лента", "Зеленият кръг"], correct: 1, explanation: "Червената лента (Red Ribbon) е световният символ." },
+        { question: "10. Защо борбата със стигмата е изключително важна?", options: ["Насърчава навременното тестване и лечение", "Няма никакво значение", "Лекува вируса бързо"], correct: 0, explanation: "Намаляването на страха и дискриминацията води до по-ранна грижа за здравето." }
     ];
 
     let currentQuestionIndex = 0;
@@ -117,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             quizResult.classList.remove('hidden');
             scoreDisplay.textContent = `${score}/${quizQuestions.length}`;
             resultTitle.textContent = score >= 9 ? "Отличен резултат!" : score >= 6 ? "Много добър резултат!" : "Добро начало!";
-            resultMessage.textContent = "Информираността е най-добрата защита срещу предразсъдъците.";
+            resultMessage.textContent = "Информираността е най-добрата превенция и защита срещу предразсъдъците.";
         }
 
         restartBtn.addEventListener('click', () => {
@@ -131,12 +139,12 @@ document.addEventListener('DOMContentLoaded', () => {
         loadQuestion();
     }
 
-    /* 4. FAQ АКОРДЕОН */
+    // FAQ аккордеон
     document.querySelectorAll('.faq-question').forEach(btn => {
         btn.addEventListener('click', () => btn.parentElement.classList.toggle('active'));
     });
 
-    /* 5. СКРОЛ НАГОРЕ И СПОДЕЛЯНЕ */
+    // Бутон за връщане нагоре
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     if (scrollTopBtn) {
         window.addEventListener('scroll', () => {
@@ -145,17 +153,18 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     }
 
+    // Бутон за споделяне
     const shareBtn = document.getElementById('shareBtn');
     const shareFeedback = document.getElementById('shareFeedback');
     if (shareBtn) {
         shareBtn.addEventListener('click', () => {
             navigator.clipboard.writeText(window.location.href);
-            shareFeedback.textContent = "Линкът е копиран в клипборда!";
+            shareFeedback.textContent = "Линкът към кампанията е копиран!";
             setTimeout(() => shareFeedback.textContent = "", 3500);
         });
     }
 
-    /* 6. АНИМАЦИИ */
+    // Анимации при скролиране
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -163,11 +172,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    /* 7. 3D МОДЕЛ НА ВИРУСА ХИВ (ФИКСИРАН И ЦЕНТРИРАН) */
+    // 3D МОДЕЛ НА ВИРУСА ХИВ С THREE.JS
     const container3D = document.getElementById('hiv3dContainer');
     if (container3D && typeof THREE !== 'undefined') {
-        const width = container3D.clientWidth || 450;
-        const height = container3D.clientHeight || 380;
+        const width = container3D.clientWidth || 400;
+        const height = container3D.clientHeight || 320;
 
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
@@ -175,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(width, height);
-        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container3D.innerHTML = "";
         container3D.appendChild(renderer.domElement);
 
@@ -232,10 +241,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function animate() {
             requestAnimationFrame(animate);
-            virusGroup.rotation.y += 0.006;
-            virusGroup.rotation.x += 0.0025;
+            virusGroup.rotation.y += 0.005;
+            virusGroup.rotation.x += 0.002;
             renderer.render(scene, camera);
         }
         animate();
+
+        window.addEventListener('resize', () => {
+            if (container3D) {
+                const newW = container3D.clientWidth || 400;
+                const newH = container3D.clientHeight || 320;
+                camera.aspect = newW / newH;
+                camera.updateProjectionMatrix();
+                renderer.setSize(newW, newH);
+            }
+        });
     }
 });
